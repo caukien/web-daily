@@ -53,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Cố gắng thực thi câu lệnh đã chuẩn bị
             if(mysqli_stmt_execute($stmt)){
                 // Tạo bản ghi thành công. Chuyển hướng đến trang đích
-                header("location: landing.php");
+                header("location: them.php");
                 exit();
             } else{
                 echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
@@ -62,6 +62,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
          
         // Đóng câu lệnh
         mysqli_stmt_close($stmt);
+    }
+    if(mysqli_query($link, $sql)){
+        // Lấy ID đã chèn cuối cùng
+        $last_id = mysqli_insert_id($link);
+        echo "Chèn bản ghi thành công. ID đã chèn cuối cùng là: " . $last_id;
+    } else{
+        echo "ERROR: Không thể thực thi câu lệnh $sql. " . mysqli_error($link);
     }
     
     // Đóng kết nối
